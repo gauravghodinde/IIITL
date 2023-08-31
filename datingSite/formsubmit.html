@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const sampleForm = document.querySelector("#formid");
+        if(sampleForm){
+            sampleForm.addEventListener("submit",function(e){
+                submitForm(e,this);
+            });
+        }
+        
+        function submitForm(){
+            let name =document.getElementById("fname") ;
+            let catchPhrase =document.getElementById("catchPhrase") ;
+            let link =document.getElementById("link");
+            console.log.out(name);
+            if (name.value == "" || catchPhrase.value == "" || link.value == "") {
+                alert("Ensure you input a value in all the fields!");
+            }
+            else {
+        
+                const data = fs.readFileSync('mydata.json');
+                alert("opened file");
+                const jsonData = JSON.parse(data);
+                alert("opened data");
+                jsonData.users.push({
+                    name: name.value,
+                    catchPhrase: catchPhrase.value,
+                    link: link.value,
+          // or any other data we want to add in that object
+                });
+                alert("pusehed data");
+                fs.writeFileSync('mydata.json', JSON.stringify(jsonData));
+                alert("This form has been successfully submitted!");
+                name.value = "";
+                catchPhrase.value = "";
+                link.value == "";
+            // perform operation with form input
+                }
+            };
+    </script>
+    <br></br>
+        <form action="" id="formid">
+           
+            <input type="text" name="Name" id="fname" placeholder="enter your name">
+    <br></br>
+
+            
+            <input type="text" name="CatchPhrase" id="catchPhrase" placeholder="Enter the 'Catch Phrases'">
+    <br></br>
+            
+            <input type="text" name="Link" id="link" placeholder="Enter the 'link' of the image ">
+    <br></br>
+            <button type="submit" onclick="submitForm()">Submit</button>
+        </form>
+</body>
+</html>
