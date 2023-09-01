@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <br></br>
+        <form action="" id="formid">
+           
+            <input type="text" name="Name" id="fname" placeholder="enter your name">
+    <br></br>
+
+            
+            <input type="text" name="CatchPhrase" id="catchPhrase" placeholder="Enter the 'Catch Phrases'">
+    <br></br>
+            
+            <input type="text" name="Link" id="link" placeholder="Enter the 'link' of the image ">
+    <br></br>
+            <button type="submit" onclick="submitForm()">Submit</button>
+        </form>
+</body>
+<script>
+    const sampleForm = document.querySelector("#formid");
+    if(sampleForm){
+        sampleForm.addEventListener("submit",function(e){
+            submitForm(e,this);
+        });
+    }
+    
+    function submitForm(){
+        let name =document.getElementById("fname") ;
+        let catchPhrase =document.getElementById("catchPhrase") ;
+        let link =document.getElementById("link");
+        console.log.out(name);
+        if (name.value == "" || catchPhrase.value == "" || link.value == "") {
+            alert("Ensure you input a value in all the fields!");
+        }
+        else {
+            //fetching the json file from local storage
+            fetch('mydata.json')
+            .then(response => response.json())
+            .then(data => {
+    
+
+            // pushing the data in json file
+            data.someArray.push({   name: name,
+                                    catchPhrase: catchPhrase,
+                                    link: link, });
+
+            
+            fetch('your_file.json', {
+                method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+            if (response.ok) {
+                console.log('Data saved successfully.');
+            } else {
+            console.error('Failed to save data.');
+            }
+            })
+            .catch(error => console.error('Error:', error));
+
+            })
+            .catch(error => console.error('Error:', error));
+
+            alert("This form has been successfully submitted!");
+            name.value = "";
+            catchPhrase.value = "";
+            link.value == "";
+        // perform operation with form input
+            }
+        };
+</script>
+</html>
