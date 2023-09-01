@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // To keep track of the current data index
+        let currentIndex = 0;
+        // document.addEventListener("DOMContentLoaded", function() {
+        // const nextButton = document.getElementById('nextButton');
+        // nextButton.addEventListener('click', displayNextData);
+//         function nextOne() {
+//   // Fetch the JSON file
+   
+//         fetch('mydata.json')
+//     .then(response => response.json())
+//     .then(data => {
+//       // Store the data
+//       const jsonData = data;
+      
+//       // Display the initial data
+//       displayData(jsonData, currentIndex);
+//     })
+//     .catch(error => {
+//       console.error('Error fetching JSON:', error);
+//     });
+// };
+
+function displayData(data, i) {
+    let name = data.items[i].name;
+    let catchPhrase = data.items[i].catchPhrase;
+    let link = data.items[i].link;
+    document.getElementById("catchPhrase").innerHTML = catchPhrase;
+    document.getElementById("name").innerHTML = name;
+    var img = document.getElementById('fimage');
+    img.src = link;
+}
+
+function displayNextData() {
+    fetch('mydata.json')
+    .then(response => response.json())
+    .then(data => {
+      // Store the data
+      const jsonData = data;
+      
+      
+      // Display the initial data
+      displayData(jsonData, currentIndex);
+      currentIndex++;
+    })
+    .catch(error => {
+      console.error('Error fetching JSON:', error);
+      if(error == "TypeError: Cannot read properties of undefined (reading 'name')"){
+        currentIndex = 0;
+      }
+    //   if (currentIndex => jsonData.length) {
+        
+    //     }
+    });
+   // Move to the next data index
+//   displayData(jsonData, currentIndex);
+
+  // Reset index if it goes beyond the data length
+  
+}
+
+        // function nextOne() {
+        //     fetch("mydata.json")
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             for (var i = 0; i<data.items.length; i++){
+        //                 let name = data.items[i].name;
+        //                 let catchPhrase = data.items[i].catchPhrase;
+        //                 let link = data.items[i].link;
+        //                 document.getElementById("catchPhrase").innerHTML = catchPhrase;
+        //                 document.getElementById("name").innerHTML = name;
+        //                 var img = document.getElementById('fimage');
+        //                 img.src = link;
+                            
+        //             }
+        //         })
+            
+        // }
+    function dateHimHer(){
+        
+       document.getElementById("myAudio").play();
+    }
+
+    
+    </script>
+</head>
+<body>
+
+    <div>
+        <h2></h2>
+        <p id="name"> pink dress wali ladki</p>
+        <p id="catchPhrase">I am too hot to handle</p>
+        <div style="text-align: center;">
+        <img src="https://th.bing.com/th/id/R.b926113d691e50b55878d2279749f563?rik=XE5J5cxaF68nmQ&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f07%2fDownload-Free-Cute-Anime-Couple-Background.jpg&ehk=w2wTwmrKrWFNLasPE5kmcPCZbZJNZVZJXknrVdir2DU%3d&risl=&pid=ImgRaw&r=0" id="fimage" height="700px" width="750pxl" alt="Image" style="text-align: center;">
+    </div>
+    </div>
+    <button type="button" onclick="displayNextData()" ><h1 style="color: brown;">Next</h1></button>
+    <button type="button" onclick="dateHimHer()"><h1 style="color: rgba(147, 233, 97, 0.705);">DATE</h1></button>
+    <audio id="myAudio" src="careless_whispers.mp3"></audio>
+</body>
+</html>
